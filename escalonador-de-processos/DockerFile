@@ -1,0 +1,22 @@
+# Imagem base com ferramentas de compilação
+FROM debian:bullseye
+
+# Evita prompts interativos
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Instala ferramentas necessárias
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    make \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia todos os arquivos do projeto para o container
+COPY . .
+
+# Comando padrão: compila o projeto com make
+CMD ["make"]
